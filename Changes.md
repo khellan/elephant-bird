@@ -1,4 +1,8 @@
-# Elephant Bird #
+# Elephant Bird PigJsonLoader #
+
+### PigJsonLoader ###
+
+Stripped down to just the JsonLoader and made compatible with pig 0.8
 
 ### Version 1.2.2 ###
 
