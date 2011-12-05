@@ -27,7 +27,8 @@ public class PigJsonLoader extends LoadFunc {
 	private static final TupleFactory tupleFactory_ = TupleFactory.getInstance();
 	private final JSONParser jsonParser_ = new JSONParser();
 	private LineRecordReader in = null;
-	
+	private final Tuple emptyTuple = tupleFactory_.newTuple(Maps.newHashMap());
+
 	public PigJsonLoader() {
 		
 	}
@@ -73,12 +74,15 @@ public class PigJsonLoader extends LoadFunc {
 							: null);
 			}
 			return tupleFactory_.newTuple(values);
+        } catch (NullPointerException e) {
+            LOG.warn("Could not json-decode string: " + line, e);
+			return emptyTuple;
 		} catch (ParseException e) {
 			LOG.warn("Could not json-decode string: " + line, e);
-			return null;
+			return emptyTuple;
 		} catch (NumberFormatException e) {
 			LOG.warn("Very big number exceeds the scale of long: " + line, e);
-			return null;
+			return emptyTuple;
 		}
 	}
 
