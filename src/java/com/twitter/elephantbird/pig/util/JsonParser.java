@@ -42,10 +42,13 @@ public class JsonParser extends EvalFunc<Map> {
       return (JSONObject)parser.parse(line);
     } catch (ParseException e) {
       LOG.warn("Could not json-decode string: " + line, e);
-      return null;
+      return new JSONObject();
     } catch (NumberFormatException e) {
       LOG.warn("Very big number exceeds the scale of long: " + line, e);
-      return null;
+      return new JSONObject();
+    } catch (ClassCastException e) {
+      LOG.warn("ClassCastException, expected JSONObject: " + line, e);
+      return new JSONObject();
     }
   }
 

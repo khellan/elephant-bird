@@ -83,6 +83,9 @@ public class PigJsonLoader extends LoadFunc {
 		} catch (NumberFormatException e) {
 			LOG.warn("Very big number exceeds the scale of long: " + line, e);
 			return emptyTuple;
+        } catch (ClassCastException e) {
+          LOG.warn("ClassCastException, expected JSONObject: " + line, e);
+          return null;
 		}
 	}
 
