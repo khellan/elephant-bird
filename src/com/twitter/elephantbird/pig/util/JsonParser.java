@@ -58,7 +58,7 @@ public class JsonParser extends EvalFunc<Map> {
 
       Object object = input.get(0);
       if (object == null) return null;
-      
+     
       Map payload = parseLine(((String)object).trim());
       // Pig doesn't like Complex members in it's Maps
       for (Object key : payload.keySet()) {
